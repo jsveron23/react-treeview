@@ -54,7 +54,7 @@ const generateHTML = (data, evtList = {}) => {
               {label}
             </label>
 
-            {children && generateHTML(children)}
+            {children && generateHTML(children, evtList)}
 
           </li>
         );
@@ -78,7 +78,9 @@ export default class Tree extends Component {
 
   componentDidMount() {
     this.setState({
-      data: generateHTML(this.props.data)
+      data: generateHTML(this.props.data, {
+        onContextMenu: this.props.onContextMenu
+      })
     });
   }
 

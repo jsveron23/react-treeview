@@ -55,16 +55,28 @@ const data = [{
 }];
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleContextMenu = this.handleContextMenu.bind(this);
+  }
+
   render() {
     return (
       <div>
         <section className="cp">
           <h2 className="cp-title">Tree Component</h2>
           <div className="cp-wrap">
-            <Tree data={data} />
+            <Tree data={data} onContextMenu={this.handleContextMenu} />
           </div>
         </section>
       </div>
     );
+  }
+
+  handleContextMenu(evt) {
+    evt.preventDefault();
+
+    console.log(evt.target.textContent);
   }
 };
