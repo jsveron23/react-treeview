@@ -1,0 +1,66 @@
+// @import "../../mixins/invert";
+
+.tree {
+  ul,
+  li {
+    list-style: none;
+  }
+
+  li {
+    margin:      1px 0;
+    user-select: none;
+  }
+
+  li > label {
+    display:       inline-block;
+    cursor:        pointer;
+    padding:       3px;
+    border-bottom: 1px solid transparent;
+
+    &:hover {
+      border-bottom: 1px solid #E0E0E0;
+    }
+
+    &:before {
+      content:      "";
+      margin-right: 5px;
+      display:      inline-block;
+    }
+
+    &.has-children {
+      font-size:   110%;
+      font-weight: bold;
+
+      &:before {
+        font-family:  FontAwesome;
+        content:      "\f067";
+        font-size:    10px;
+        font-weight:  lighter;
+        margin-right: 5px;
+      }
+    }
+  }
+
+  input:checked + label.has-children {
+    &:before {
+      font-family: FontAwesome;
+      content:     "\f068";
+    }
+  }
+
+  input {
+    display: none;
+  }
+
+  & input + label + ul {
+    margin-left: 10px;
+  }
+
+  input ~ ul {
+    display: none;
+  }
+
+  input:checked ~ ul {
+    display: block;
+  }
+}
