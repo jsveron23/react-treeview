@@ -35,8 +35,6 @@ class TreeView extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.searchText) {
-      // this.props.onSearchNode(findDOMNode(this));
-      console.log(nextProps.searchText);
       const
         dom   = findDOMNode(this),
         nodes = dom.querySelectorAll(`li[data-name*="${nextProps.searchText}"]`);

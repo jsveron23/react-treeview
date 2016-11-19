@@ -112,10 +112,6 @@ export default class App extends Component {
     );
   }
 
-  handleSearch() {
-    console.log('blag');
-  }
-
   handleClick(evt) {
     this.clickTextEl.textContent = evt.target.textContent;
 
