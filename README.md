@@ -8,6 +8,10 @@ npm install
 npm start
 ```
 
+# Screenshot
+
+![Screenshot](screenshot.png)
+
 Then open http://localhost:3000 in a browser.
 
 ## License

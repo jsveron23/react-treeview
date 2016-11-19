@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 
-import { generateUUID } from './uuid';
+import { shortId } from './shortid';
 
 // SASS
 import './treeview.scss';
@@ -104,7 +104,7 @@ class TreeView extends Component {
             label     = item.label,
             // upperedNm = label.toUpperCase(),
             loweredNm = label.toLowerCase(),
-            uniqueKey = generateUUID(),
+            uniqueKey = shortId(),
             children  = item.children;
 
           return (

@@ -7,6 +7,14 @@ import './app.scss';
 import Tree from './treeview';
 
 const data = [{
+  label: 'Sci-Fi',
+  children: [{
+    label: 'Interstella',
+    children: [{
+      label: 'Matthew McConaughey'
+    }]
+  }]
+}, {
   label: 'Action',
   children: [{
     label: 'Edge of Tomorrow',
@@ -17,6 +25,11 @@ const data = [{
 }, {
   label: 'Fantasy',
   children: [{
+    label: 'Fantastic Beasts and Where to Find Them',
+    children: [{
+      label: 'Eddie Redmayne'
+    }]
+  }, {
     label: 'Miss Peregrine\'s Home for Peculiar Children',
     children: [{
       label: 'Eva Green'
@@ -30,7 +43,11 @@ const data = [{
     }, {
       label: 'Harrison Ford'
     }, {
+      label: 'Felicity Jones'
+    }, {
       label: 'Daisy Ridley'
+    }, {
+      label: 'Mads Mikkelsen'
     }, {
       label: 'Emilia Clarke'
     }]
@@ -42,11 +59,20 @@ const data = [{
       label: 'Rachel McAdams'
     }, {
       label: 'Chiwetel Ejiofor'
+    }, {
+      label: 'Mads Mikkelsen'
     }]
   }]
 }, {
   label: 'Comedy',
   children: [{
+    label: 'The Wolf of Wall Street',
+    children: [{
+      label: 'Leonardo DiCaprio'
+    }, {
+      label: 'Matthew McConaughey'
+    }]
+  }, {
     label: 'Bad Moms',
     children: [{
       label: 'Mila Kunis'
