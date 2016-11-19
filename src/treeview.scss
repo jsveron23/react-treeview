@@ -1,6 +1,10 @@
 // @import "../../mixins/invert";
 
 .tree {
+  &-root {
+    margin: 7px 0;
+  }
+
   ul,
   li {
     list-style: none;
@@ -14,7 +18,8 @@
   li > label {
     display:       inline-block;
     cursor:        pointer;
-    padding:       3px;
+    padding:       3px 7px;
+    border-radius: 6px;
     border-bottom: 1px solid transparent;
 
     &:hover {
@@ -22,9 +27,9 @@
     }
 
     &:before {
-      content:      "";
-      margin-right: 5px;
-      display:      inline-block;
+      content: "";
+      // margin-right: 5px;
+      display: inline-block;
     }
 
     &.has-children {

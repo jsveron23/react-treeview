@@ -1,24 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 
+import { generateUUID } from './uuid';
+
 // SASS
 import './treeview.scss';
 
 const noop = function() {};
-
-/**
- * @see {@link https://jsfiddle.net/briguy37/2MVFd/}
- * @return {string}
- */
-const generateUUID = () => {
-  let d = new Date().getTime();
-  let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-    let r = (d + Math.random()*16)%16 | 0;
-    d = Math.floor(d/16);
-    return (c=='x' ? r : (r&0x3|0x8)).toString(16);
-  });
-  return uuid;
-};
 
 /**
  * @class TreeView Component
@@ -34,19 +22,31 @@ class TreeView extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    this.element = findDOMNode(this);
+
+    // for searching
     if (nextProps.searchText) {
       const
-        dom   = findDOMNode(this),
-        nodes = dom.querySelectorAll(`li[data-name*="${nextProps.searchText}"]`);
+        element     = this.element,
+        searchQuery = `li[data-name*="${nextProps.searchText}"]`,
+        foundNodes  = element.querySelectorAll(searchQuery),
+        foundLabel  = element.querySelectorAll('label[class="is-found"]'),
+        checkedEl   = element.querySelectorAll('input:checked');
+
+      // clearing .is-found before adding again
+      foundLabel.forEach((node) => {
+        node.classList.remove('is-found');
+      });
 
       // close all nodes before reopenning
-      dom.querySelectorAll('input:checked').forEach((node) => {
+      checkedEl.forEach((node) => {
         node.checked = false;
       });
 
       // opnning all parent elements of searched nodes
-      nodes.forEach((node) => {
-        this.openParent(node);
+      foundNodes.forEach((node) => {
+        node.querySelector('label').classList.add('is-found');
+        this.openNode(node);
       });
     }
   }
@@ -68,20 +68,25 @@ class TreeView extends Component {
   }
 
   /**
-   * [openParent description]
-   * @param  {array} node
+   * Open all parents nodes after searching specific node
+   * @param {array} node
    */
-  openParent(node) {
-    const parent = node.parentElement;
+  openNode(node) {
+    const
+      input = node.querySelector('input');
 
     // console.log(node, parent);
-    if (parent.classList.contains('tree')) {
+    if (node.classList.contains('tree')) {
       return false;
     }
 
-    this.openParent(parent);
+    if (input) {
+      input.checked = true;
+    }
 
-    node.querySelector('input').checked = true;
+    // to avoid ul element
+    // - node.parentElement.parentElement => li.ul.il
+    this.openNode(node.parentElement.parentElement);
   }
 
   /**
@@ -91,7 +96,9 @@ class TreeView extends Component {
    */
   generateHTML(data, isRoot) {
     return (
-      <ul className={isRoot ? 'tree-root' : 'tree-children'}>
+      <ul
+        className={isRoot ? 'tree-root' : 'tree-children'}
+      >
         {Array.isArray(data) && data.map((item, i) => {
           let
             label     = item.label,
@@ -106,11 +113,11 @@ class TreeView extends Component {
               data-name={loweredNm}
               data-children-length={children && children.length}
             >
-              <input
+              {children && <input
                 type="checkbox"
                 id={uniqueKey}
                 defaultValue={label}
-              />
+              />}
               <label
                 htmlFor={uniqueKey}
                 className={children && 'has-children'}

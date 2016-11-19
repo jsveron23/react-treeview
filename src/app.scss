@@ -49,25 +49,25 @@ button {
 
   &-wrap {
     // margin: 5px;
-    border-top: 1px solid #BDBDBD;
-    border-bottom: 1px solid #BDBDBD;
+    border-top:       1px solid #BDBDBD;
+    border-bottom:    1px solid #BDBDBD;
     background-color: #f5f5f5;
   }
 
   &-actions {
     // margin: 5px 0;
-    padding: 5px 0;
+    padding:       5px 0;
     border-bottom: 1px solid #BDBDBD;
   }
 }
 
 .act {
-  margin: 3px 0;
+  margin:  3px 0;
   padding: 3px 0;
 
   &-title {
     // display: inline-block;
-    margin-bottom: 5px;
+    margin-bottom:  5px;
     padding-bottom: 3px;
     // border-bottom: 1px solid #BDBDBD;
   }
@@ -76,7 +76,7 @@ button {
     padding-left: 5px;
 
     span:first-child {
-      font-weight: 600;
+      font-weight:  600;
       margin-right: 5px;
     }
 
@@ -90,7 +90,12 @@ button {
   }
 
   input {
-    margin: 0 5px;
+    margin:  0 5px;
     padding: 3px;
   }
+}
+
+.is-found {
+  background-color: #000;
+  color:            #fff;
 }

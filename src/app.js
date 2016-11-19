@@ -7,6 +7,14 @@ import './app.scss';
 import Tree from './treeview';
 
 const data = [{
+  label: 'Action',
+  children: [{
+    label: 'Edge of Tomorrow',
+    children: [{
+      label: 'Emily Blunt'
+    }]
+  }]
+}, {
   label: 'Fantasy',
   children: [{
     label: 'Miss Peregrine\'s Home for Peculiar Children',
@@ -23,6 +31,8 @@ const data = [{
       label: 'Harrison Ford'
     }, {
       label: 'Daisy Ridley'
+    }, {
+      label: 'Emilia Clarke'
     }]
   }, {
     label: 'Doctor Strange',
@@ -74,7 +84,6 @@ export default class App extends Component {
           <h1 className="cp-title">Tree Component</h1>
           <div className="cp-wrap">
             <Tree
-              ref="tree"
               data={data}
               searchText={this.state.searchText}
               onClick={this.handleClick}
@@ -99,7 +108,7 @@ export default class App extends Component {
             </div>
 
             <div className="act">
-              <h2 className="act-title">- Searching tree node</h2>
+              <h2 className="act-title">- Search tree node</h2>
               <ul className="act-wrap">
                 <label>Name:</label>
                 <input type="text" />
