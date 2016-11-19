@@ -58,25 +58,89 @@ export default class App extends Component {
   constructor(props) {
     super(props);
 
-    this.handleContextMenu = this.handleContextMenu.bind(this);
+    this.state = {
+      searchText: ''
+    };
+
+    this.handleClick          = this.handleClick.bind(this);
+    this.handleContextMenu    = this.handleContextMenu.bind(this);
+    this.handleSearchBtnClick = this.handleSearchBtnClick.bind(this);
   }
 
   render() {
     return (
       <div>
         <section className="cp">
-          <h2 className="cp-title">Tree Component</h2>
+          <h1 className="cp-title">Tree Component</h1>
           <div className="cp-wrap">
-            <Tree data={data} onContextMenu={this.handleContextMenu} />
+            <Tree
+              ref="tree"
+              data={data}
+              searchText={this.state.searchText}
+              onClick={this.handleClick}
+              onContextMenu={this.handleContextMenu}
+            />
+          </div>
+          <div className="cp-actions">
+            <div className="act">
+              <h2 className="act-title">- onClick Event</h2>
+              <div className="act-wrap">
+                <span>textContent:</span>
+                <span ref={(el) => this.clickTextEl = el} />
+              </div>
+            </div>
+
+            <div className="act">
+              <h2 className="act-title">- onContextMenu Event</h2>
+              <div className="act-wrap">
+                <span>textContent:</span>
+                <span ref={(el) => this.contextTextEl = el} />
+              </div>
+            </div>
+
+            <div className="act">
+              <h2 className="act-title">- Searching tree node</h2>
+              <ul className="act-wrap">
+                <label>Name:</label>
+                <input type="text" />
+                <button className="btn" onClick={this.handleSearchBtnClick}>Search</button>
+              </ul>
+            </div>
           </div>
         </section>
       </div>
     );
   }
 
+  handleSearch() {
+    console.log('blag');
+  }
+
+  handleClick(evt) {
+    this.clickTextEl.textContent = evt.target.textContent;
+
+    evt.stopPropagation();
+  }
+
   handleContextMenu(evt) {
     evt.preventDefault();
 
-    console.log(evt.target.textContent);
+    this.contextTextEl.textContent = evt.target.textContent;
+  }
+
+  handleSearchBtnClick(evt) {
+    evt.preventDefault();
+
+    const
+      inputEl = evt.target.parentElement.querySelector('input'),
+      text   = inputEl.value;
+
+    if (text) {
+      this.setState({
+        searchText: text
+      });
+    }
+
+    evt.stopPropagation();
   }
 };
