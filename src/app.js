@@ -110,6 +110,14 @@ export default class App extends Component {
           <h1 className="cp-title">Tree Component</h1>
           <div className="cp-wrap">
             <Tree
+              options={
+                {
+                  search: {
+                    highlight: true,
+                    collapse : true
+                  }
+                }
+              }
               data={data}
               searchText={this.state.searchText}
               onClick={this.handleClick}

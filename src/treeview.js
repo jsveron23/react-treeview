@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 
+// To make tree node having unique key
 import { shortId } from './shortid';
 
 // SASS
 import './treeview.scss';
 
+// for using defaultProps
 const noop = function() {};
 
 /**
@@ -21,6 +23,10 @@ class TreeView extends Component {
     };
   }
 
+  /**
+   * Running when recieving props after
+   * @param  {object} nextProps
+   */
   componentWillReceiveProps(nextProps) {
     this.element = findDOMNode(this);
 
@@ -28,24 +34,32 @@ class TreeView extends Component {
     if (nextProps.searchText) {
       const
         element     = this.element,
+        searchOpt   = this.props.options.search || {},
         searchQuery = `li[data-name*="${nextProps.searchText}"]`,
         foundNodes  = element.querySelectorAll(searchQuery),
         foundLabel  = element.querySelectorAll('label[class="is-found"]'),
         checkedEl   = element.querySelectorAll('input:checked');
 
-      // clearing .is-found before adding again
-      foundLabel.forEach((node) => {
-        node.classList.remove('is-found');
-      });
+      // folding all nodes before reopenning
+      if (searchOpt.collapse) {
+        checkedEl.forEach((node) => {
+          node.checked = false;
+        });
+      }
 
-      // close all nodes before reopenning
-      checkedEl.forEach((node) => {
-        node.checked = false;
-      });
+      // clearing .is-found css class before attaching again
+      if (searchOpt.highlight) {
+        foundLabel.forEach((node) => {
+          node.classList.remove('is-found');
+        });
+      }
 
       // opnning all parent elements of searched nodes
       foundNodes.forEach((node) => {
-        node.querySelector('label').classList.add('is-found');
+        if (searchOpt.highlight) {
+          node.querySelector('label').classList.add('is-found');
+        }
+
         this.openNode(node);
       });
     }
@@ -84,7 +98,9 @@ class TreeView extends Component {
       input.checked = true;
     }
 
-    // to avoid ul element
+    // to avoid pointing ul element
+    // that's why calling parentElement 2 times for that
+    // - node.parentElement => li.ul
     // - node.parentElement.parentElement => li.ul.il
     this.openNode(node.parentElement.parentElement);
   }
@@ -137,8 +153,16 @@ class TreeView extends Component {
   }
 }
 
+TreeView.defaultProps = {
+  data: [],
+  options: {},
+  onClick: noop,
+  onContextMenu: noop,
+};
+
 TreeView.propTypes = {
   data: PropTypes.array,
+  options: PropTypes.object,
   onClick: PropTypes.func,
   onContextMenu: PropTypes.func
 };
