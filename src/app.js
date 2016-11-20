@@ -63,7 +63,7 @@ export default class App extends Component {
             </div>
 
             <div className="act">
-              <h2 className="act-title">- Searching tree nodes</h2>
+              <h2 className="act-title">- Search nodes</h2>
               <ul className="act-wrap">
                 <label>Name:</label>
                 <input type="text" />
