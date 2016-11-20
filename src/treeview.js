@@ -28,8 +28,6 @@ class TreeView extends Component {
    * @param  {object} nextProps
    */
   componentWillReceiveProps(nextProps) {
-    this.element = findDOMNode(this);
-
     // for searching
     if (nextProps.searchText) {
       const
@@ -37,14 +35,12 @@ class TreeView extends Component {
         searchOpt   = this.props.options.search || {},
         searchQuery = `li[data-name*="${nextProps.searchText}"]`,
         foundNodes  = element.querySelectorAll(searchQuery),
-        foundLabel  = element.querySelectorAll('label[class="is-found"]'),
+        foundLabel  = element.querySelectorAll('label.is-found'),
         checkedEl   = element.querySelectorAll('input:checked');
 
-      // folding all nodes before reopenning
+      // closing all nodes before reopenning
       if (searchOpt.collapse) {
-        checkedEl.forEach((node) => {
-          node.checked = false;
-        });
+        this.collapseAll(checkedEl);
       }
 
       // clearing .is-found css class before attaching again
@@ -68,6 +64,8 @@ class TreeView extends Component {
   componentDidMount() {
     const data = this.generateHTML(this.props.data, true);
 
+    this.element = findDOMNode(this);
+
     this.setState({
       html: data
     });
@@ -81,13 +79,18 @@ class TreeView extends Component {
     );
   }
 
+  collapseAll(checkedEl) {
+    checkedEl.forEach((node) => {
+      node.checked = false;
+    });
+  }
+
   /**
    * Open all parents nodes after searching specific node
    * @param {array} node
    */
   openNode(node) {
-    const
-      input = node.querySelector('input');
+    const input = node.querySelector('input');
 
     // console.log(node, parent);
     if (node.classList.contains('tree')) {
