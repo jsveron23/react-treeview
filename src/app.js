@@ -2,24 +2,22 @@ import React, { Component } from 'react';
 import { extend as _extend } from 'lodash';
 
 // SASS
-import './app.scss';
+import './scss/app.scss';
 
 // Data
 import data from './data.json';
 
 // TJ Components
-import Tree from './treeview';
+import Tree from './treeview/treeview';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      searchText: undefined,
-      searchOpt : {
-        highlight: true,
-        collapse : true
-      }
+      searchText          : undefined,
+      highlightOnSearch   : true,
+      collapseBeforeSearch: true
     };
 
     this.handleClick          = this.handleClick.bind(this);
@@ -34,12 +32,9 @@ export default class App extends Component {
           <h1 className="cp-title">Tree Component</h1>
           <div className="cp-wrap">
             <Tree
-              options={
-                {
-                  search: this.state.searchOpt
-                }
-              }
               data={data}
+              highlightOnSearch={this.state.highlightOnSearch}
+              collapseBeforeSearch={this.state.collapseBeforeSearch}
               searchText={this.state.searchText}
               onClick={this.handleClick}
               onContextMenu={this.handleContextMenu}

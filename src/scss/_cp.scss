@@ -1,0 +1,19 @@
+.cp {
+  &-title {
+    // margin: 5px 0;
+    padding: 5px 0;
+  }
+
+  &-wrap {
+    // margin: 5px;
+    border-top:       1px solid $defaultBorderColor;
+    border-bottom:    1px solid $defaultBorderColor;
+    background-color: #f5f5f5;
+  }
+
+  &-actions {
+    // margin: 5px 0;
+    padding:       5px 0;
+    border-bottom: 1px solid $defaultBorderColor;
+  }
+}

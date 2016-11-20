@@ -1,0 +1,31 @@
+.act {
+  margin:  3px 0;
+  padding: 3px 0;
+
+  &-title {
+    margin-bottom:  5px;
+    padding-bottom: 3px;
+  }
+
+  &-wrap {
+    padding-left: 5px;
+
+    span:first-child {
+      font-weight:  600;
+      margin-right: 5px;
+    }
+
+    span:last-child {
+      font-weight: 300;
+    }
+  }
+
+  label {
+    font-weight: 600;
+  }
+
+  input {
+    margin:  0 5px;
+    padding: 3px;
+  }
+}

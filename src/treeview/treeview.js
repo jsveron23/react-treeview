@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 
 // To make tree node having unique key
-import { shortId } from './shortid';
+import { shortId } from '../utils';
 
 // SASS
-import './treeview.scss';
+import '../scss/treeview.scss';
 
 // for using defaultProps
 const noop = function() {};
@@ -24,37 +24,27 @@ class TreeView extends Component {
   }
 
   /**
-   * Running when recieving props after
-   * @param  {object} nextProps
+   * @param {object} nextProps
    */
   componentWillReceiveProps(nextProps) {
     // for searching
     if (typeof nextProps.searchText !== 'undefined') {
       const
         element     = this.element,
-        searchOpt   = this.props.options.search || {},
         searchQuery = `li[data-name*="${nextProps.searchText}"]`,
         foundNodes  = element.querySelectorAll(searchQuery),
         foundLabel  = element.querySelectorAll('label.is-found'),
         checkedEl   = element.querySelectorAll('input:checked');
 
       // closing all nodes before reopenning
-      if (searchOpt.collapse) {
-        this.collapseAll(checkedEl);
-      }
+      if (nextProps.collapseBeforeSearch) { this.collapseAll(checkedEl); }
 
       // clearing .is-found css class before attaching again
-      if (searchOpt.highlight) {
-        foundLabel.forEach((node) => {
-          node.classList.remove('is-found');
-        });
-      }
+      if (nextProps.highlightOnSearch) { this.removeHighlight(foundLabel); }
 
       // opnning all parent elements of searched nodes
       foundNodes.forEach((node) => {
-        if (searchOpt.highlight) {
-          node.querySelector('label').classList.add('is-found');
-        }
+        if (nextProps.highlightOnSearch) { this.addHighlight(node); }
 
         this.openNode(node);
       });
@@ -62,12 +52,10 @@ class TreeView extends Component {
   }
 
   componentDidMount() {
-    const data = this.generateHTML(this.props.data, true);
-
     this.element = findDOMNode(this);
 
     this.setState({
-      html: data
+      html: this.generateHTML(this.props.data, true)
     });
   }
 
@@ -79,9 +67,19 @@ class TreeView extends Component {
     );
   }
 
-  collapseAll(checkedEl) {
-    checkedEl.forEach((node) => {
+  collapseAll(el) {
+    el.forEach((node) => {
       node.checked = false;
+    });
+  }
+
+  addHighlight(el) {
+    el.querySelector('label').classList.add('is-found');
+  }
+
+  removeHighlight(el) {
+    el.forEach((node) => {
+      node.classList.remove('is-found');
     });
   }
 

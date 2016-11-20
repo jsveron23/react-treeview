@@ -1,0 +1,36 @@
+*,
+*:after,
+*:before {
+  -webkit-box-sizing: border-box;
+}
+
+body {
+  font-family: 'open sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  overflow:    auto;
+  width:       100%;
+  height:      100%;
+  font-size:   $defaultFontSize;
+
+  -webkit-font-smoothing: antialiased;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol {
+  margin:  0;
+  padding: 0;
+}
+
+input,
+button {
+  &:focus {
+    outline: 0;
+  }
+}
