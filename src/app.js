@@ -15,7 +15,7 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      searchText: '',
+      searchText: undefined,
       searchOpt : {
         highlight: true,
         collapse : true
@@ -39,7 +39,7 @@ export default class App extends Component {
                   search: this.state.searchOpt
                 }
               }
-              data={[data]}
+              data={data}
               searchText={this.state.searchText}
               onClick={this.handleClick}
               onContextMenu={this.handleContextMenu}
@@ -66,8 +66,7 @@ export default class App extends Component {
               <h2 className="act-title">- Search nodes</h2>
               <ul className="act-wrap">
                 <label>Name:</label>
-                <input type="text" />
-                <button className="btn" onClick={this.handleSearchBtnClick}>Search</button>
+                <input type="text" onKeyUp={this.handleSearchBtnClick} />
               </ul>
             </div>
           </div>
@@ -95,11 +94,9 @@ export default class App extends Component {
       inputEl = evt.target.parentElement.querySelector('input'),
       text   = inputEl.value;
 
-    if (text) {
-      this.setState({
-        searchText: text
-      });
-    }
+    this.setState({
+      searchText: text
+    });
 
     evt.stopPropagation();
   }

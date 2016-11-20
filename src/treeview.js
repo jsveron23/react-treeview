@@ -29,7 +29,7 @@ class TreeView extends Component {
    */
   componentWillReceiveProps(nextProps) {
     // for searching
-    if (nextProps.searchText) {
+    if (typeof nextProps.searchText !== 'undefined') {
       const
         element     = this.element,
         searchOpt   = this.props.options.search || {},
