@@ -17,6 +17,8 @@ Then open http://localhost:3000 in a browser.
 npm install react-tj-treeview
 ```
 
+You will need CSS for using this module, [look at this](examples/scss/modules/_tree.scss).
+
 # Screenshot
 
 ![Screenshot](screenshot.png)
@@ -109,4 +111,4 @@ npm install react-tj-treeview
 
 ## License
 
-MIT, see the [LICENSE](https://github.com/jsveron23/react-tj-treeview/blob/master/LICENSE) file for detail.
+MIT, see the [LICENSE](LICENSE) file for detail.
