@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { extend as _extend } from 'lodash';
 
 // SASS
-import './scss/app.scss';
+import './scss/app';
 
 // Data
-import data from './data.json';
+import data from './data';
 
-// TJ Components
-import Tree from './treeview/treeview';
+// TJ TreeView
+import TreeView from 'react-tj-treeview';
 
 export default class App extends Component {
   constructor(props) {
@@ -31,7 +31,7 @@ export default class App extends Component {
         <section className="cp">
           <h1 className="cp-title">Tree Component</h1>
           <div className="cp-wrap">
-            <Tree
+            <TreeView
               data={data}
               highlightOnSearch={this.state.highlightOnSearch}
               collapseBeforeSearch={this.state.collapseBeforeSearch}

@@ -6,30 +6,37 @@ module.exports = {
 
   entry: [
     'webpack-hot-middleware/client',
-    './src/index.js'
+    './index.js'
   ],
 
   output: {
-    path      : path.join(__dirname, 'public'),
+    path      : path.resolve(__dirname, '../public'),
     filename  : 'bundle.js',
     publicPath: '/'
   },
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    // new webpack.DefinePlugin({
-    //   'process.env': {
-    //     NODE_ENV: JSON.stringify('production')
-    //   }
-    // }),
-    // new webpack.optimize.UglifyJsPlugin()
+    new webpack.DefinePlugin({
+      'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development') },
+    }),
+    new webpack.SourceMapDevToolPlugin({
+      exclude: /node_modules/
+    })
   ],
+
+  resolve: {
+    extensions: ['', '.js', '.jsx', '.json', '.scss'],
+    alias     : {
+      'react-tj-treeview': path.resolve(__dirname, '../src')
+    }
+  },
 
   module: {
     loaders: [{
-      test   : /\.js$/,
+      test   : /\.(js|jsx)$/,
       loaders: ['babel'],
-      include: path.join(__dirname, 'src')
+      exclude: /node_modules/
     }, {
       test   : /\.scss$/,
       loaders: ['style', 'css?sourceMap', 'sass?sourceMap']

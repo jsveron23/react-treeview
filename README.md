@@ -5,10 +5,17 @@
 
 ```bash
 npm install
+cd examples && npm install
 npm start
 ```
 
 Then open http://localhost:3000 in a browser.
+
+# Install
+
+```bash
+npm install react-tj-treeview
+```
 
 # Screenshot
 
