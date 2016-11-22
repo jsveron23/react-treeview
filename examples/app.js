@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { extend as _extend } from 'lodash';
+// import { extend as _extend } from 'lodash';
 
 // SASS
 import './scss/app';
@@ -15,14 +15,15 @@ export default class App extends Component {
     super(props);
 
     this.state = {
+      treeData            : data,
       searchText          : undefined,
       highlightOnSearch   : true,
       collapseBeforeSearch: true
     };
 
-    this.handleClick          = this.handleClick.bind(this);
-    this.handleContextMenu    = this.handleContextMenu.bind(this);
-    this.handleSearchBtnClick = this.handleSearchBtnClick.bind(this);
+    this.handleClick       = this.handleClick.bind(this);
+    this.handleContextMenu = this.handleContextMenu.bind(this);
+    this.handleLiveSearch  = this.handleLiveSearch.bind(this);
   }
 
   render() {
@@ -32,7 +33,7 @@ export default class App extends Component {
           <h1 className="cp-title">Tree Component</h1>
           <div className="cp-wrap">
             <TreeView
-              data={data}
+              data={this.state.treeData}
               highlightOnSearch={this.state.highlightOnSearch}
               collapseBeforeSearch={this.state.collapseBeforeSearch}
               searchText={this.state.searchText}
@@ -40,6 +41,7 @@ export default class App extends Component {
               onContextMenu={this.handleContextMenu}
             />
           </div>
+
           <div className="cp-actions">
             <div className="act">
               <h2 className="act-title">- onClick Event</h2>
@@ -58,10 +60,10 @@ export default class App extends Component {
             </div>
 
             <div className="act">
-              <h2 className="act-title">- Search nodes</h2>
+              <h2 className="act-title">- Search nodes (Live search)</h2>
               <ul className="act-wrap">
                 <label>Name:</label>
-                <input type="text" onKeyUp={this.handleSearchBtnClick} />
+                <input type="text" onKeyUp={this.handleLiveSearch} />
               </ul>
             </div>
           </div>
@@ -70,24 +72,40 @@ export default class App extends Component {
     );
   }
 
+  /**
+   * Return node element when click node
+   * @param {object} evt
+   */
   handleClick(evt) {
-    this.clickTextEl.textContent = evt.target.textContent;
+    const node = evt.target;
+
+    this.clickTextEl.textContent = node.textContent;
 
     evt.stopPropagation();
   }
 
+  /**
+   * Return node element when right click node
+   * @param {object} evt
+   */
   handleContextMenu(evt) {
     evt.preventDefault();
 
-    this.contextTextEl.textContent = evt.target.textContent;
+    const node = evt.target;
+
+    this.contextTextEl.textContent = node.textContent;
   }
 
-  handleSearchBtnClick(evt) {
+  /**
+   * Live search
+   * @param {onject} evt
+   */
+  handleLiveSearch(evt) {
     evt.preventDefault();
 
     const
       inputEl = evt.target.parentElement.querySelector('input'),
-      text   = inputEl.value;
+      text    = inputEl.value;
 
     this.setState({
       searchText: text

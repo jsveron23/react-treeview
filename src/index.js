@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { findDOMNode } from 'react-dom';
+import { findDOMNode }                 from 'react-dom';
 
 // To make tree node having unique key
 import { shortId } from './utils';
@@ -16,7 +16,7 @@ class TreeView extends Component {
     super(props);
 
     this.state = {
-      html: []
+      treedata: []
     };
   }
 
@@ -26,9 +26,11 @@ class TreeView extends Component {
   componentWillReceiveProps(nextProps) {
     // for searching
     if (typeof nextProps.searchText !== 'undefined') {
+      const text = nextProps.searchText;
+
       const
         element     = this.element,
-        searchQuery = `li[data-name*="${nextProps.searchText}"]`,
+        searchQuery = `li[data-name*="${text}" i]`,
         foundNodes  = element.querySelectorAll(searchQuery),
         foundLabel  = element.querySelectorAll('label.is-found'),
         checkedEl   = element.querySelectorAll('input:checked');
@@ -52,17 +54,23 @@ class TreeView extends Component {
     this.element = findDOMNode(this);
 
     this.setState({
-      html: this.generateHTML(this.props.data, true)
+      treeData: this.generateJSX(this.props.data, true)
     });
   }
 
   render() {
     return (
       <div className="tree">
-        {this.state.html}
+        {this.state.treeData}
       </div>
     );
   }
+
+  // onChange(evt) {
+  //   const checkbox = evt.target;
+
+  //   this.setData();
+  // }
 
   collapseAll(el) {
     el.forEach((node) => {
@@ -104,28 +112,29 @@ class TreeView extends Component {
   }
 
   /**
-   * Generate HTML elements
+   * Generate JSX
    * @param  {array}   data
    * @return {element}
    */
-  generateHTML(data, isRoot) {
+  generateJSX(data, isRoot) {
     return (
       <ul
         className={isRoot ? 'tree-root' : 'tree-children'}
       >
-        {Array.isArray(data) && data.map((item, i) => {
+        {Array.isArray(data) && data.map((node, i) => {
           let
-            label     = item.label,
+            label     = node.label,
             // upperedNm = label.toUpperCase(),
             loweredNm = label.toLowerCase(),
             uniqueKey = shortId(),
-            children  = item.children;
+            children  = node.children;
+
+          // console.log(isLeaf);
 
           return (
             <li
               key={uniqueKey}
               data-name={loweredNm}
-              data-children-length={children && children.length}
             >
               {children && <input
                 type="checkbox"
@@ -138,10 +147,11 @@ class TreeView extends Component {
                 onClick={this.props.onClick}
                 onContextMenu={this.props.onContextMenu}
               >
+                {/*`${label}${!isLeaf ? ' (' + children.length + ')' : ''}`*/}
                 {label}
               </label>
 
-              {children && this.generateHTML(children, false)}
+              {children && this.generateJSX(children, false)}
 
             </li>
           );

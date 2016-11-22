@@ -1,4 +1,4 @@
-// @import "../../mixins/invert";
+$hoverBorderColor: #e0e0e0;
 
 .tree {
   &-root {
@@ -23,12 +23,11 @@
     border-bottom: 1px solid transparent;
 
     &:hover {
-      border-bottom: 1px solid #E0E0E0;
+      border-bottom: 1px solid $hoverBorderColor;
     }
 
     &:before {
       content: "";
-      // margin-right: 5px;
       display: inline-block;
     }
 
