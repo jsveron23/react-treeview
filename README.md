@@ -1,7 +1,7 @@
 # react-tj-treeview
 > for React
 
-# Example
+## Example
 
 ```bash
 npm install
@@ -11,15 +11,92 @@ npm start
 
 Then open http://localhost:3000 in a browser.
 
-# Install
+## Install
 
 ```bash
 npm install react-tj-treeview
 ```
 
-You will need CSS for using this module, [look at this](examples/scss/modules/_tree.scss).
+## Customize
 
-# Screenshot
+### CSS
+
+You will need CSS for using this module, customize this.
+
+```sass
+$hoverBorderColor: #e0e0e0;
+
+.tree {
+  &-root {
+    margin: 7px 0;
+  }
+
+  ul,
+  li {
+    list-style: none;
+  }
+
+  li {
+    margin:      1px 0;
+    user-select: none;
+  }
+
+  li > label {
+    display:       inline-block;
+    cursor:        pointer;
+    padding:       3px 7px;
+    border-radius: 6px;
+    border-bottom: 1px solid transparent;
+
+    &:hover {
+      border-bottom: 1px solid $hoverBorderColor;
+    }
+
+    &:before {
+      content: "";
+      display: inline-block;
+    }
+
+    &.has-children {
+      font-size:   110%;
+      font-weight: bold;
+
+      &:before {
+        font-family:  FontAwesome;
+        content:      "\f067";
+        font-size:    10px;
+        font-weight:  lighter;
+        margin-right: 5px;
+      }
+    }
+  }
+
+  input:checked + label.has-children {
+    &:before {
+      font-family: FontAwesome;
+      content:     "\f068";
+    }
+  }
+
+  input {
+    display: none;
+  }
+
+  & input + label + ul {
+    margin-left: 10px;
+  }
+
+  input ~ ul {
+    display: none;
+  }
+
+  input:checked ~ ul {
+    display: block;
+  }
+}
+```
+
+## Screenshot
 
 ![Screenshot](screenshot.png)
 
