@@ -7,6 +7,11 @@ import './scss/app';
 // Data
 import data from './data';
 
+// Containers
+import Click       from './containers/click';
+import ContextMenu from './containers/contextmenu';
+import Search      from './containers/search';
+
 // TJ TreeView
 import TreeView from 'react-tj-treeview';
 
@@ -18,7 +23,10 @@ export default class App extends Component {
       treeData            : data,
       searchText          : undefined,
       highlightOnSearch   : true,
-      collapseBeforeSearch: true
+      collapseBeforeSearch: true,
+
+      clickText      : '',
+      contextMenuText: ''
     };
 
     this.handleClick       = this.handleClick.bind(this);
@@ -43,29 +51,9 @@ export default class App extends Component {
           </div>
 
           <div className="cp-actions">
-            <div className="act">
-              <h2 className="act-title">- onClick Event</h2>
-              <div className="act-wrap">
-                <span>textContent:</span>
-                <span ref={(el) => this.clickTextEl = el} />
-              </div>
-            </div>
-
-            <div className="act">
-              <h2 className="act-title">- onContextMenu Event</h2>
-              <div className="act-wrap">
-                <span>textContent:</span>
-                <span ref={(el) => this.contextTextEl = el} />
-              </div>
-            </div>
-
-            <div className="act">
-              <h2 className="act-title">- Search nodes (Live search)</h2>
-              <ul className="act-wrap">
-                <label>Name:</label>
-                <input type="text" onKeyUp={this.handleLiveSearch} />
-              </ul>
-            </div>
+            <Click textContent={this.state.clickText} />
+            <ContextMenu textContent={this.state.contextMenuText} />
+            <Search onKeyUp={this.handleLiveSearch} />
           </div>
         </section>
       </div>
@@ -79,7 +67,9 @@ export default class App extends Component {
   handleClick(evt) {
     const node = evt.target;
 
-    this.clickTextEl.textContent = node.textContent;
+    this.setState({
+      clickText: node.textContent
+    });
 
     evt.stopPropagation();
   }
@@ -93,7 +83,9 @@ export default class App extends Component {
 
     const node = evt.target;
 
-    this.contextTextEl.textContent = node.textContent;
+    this.setState({
+      contextMenuText: node.textContent
+    });
   }
 
   /**
