@@ -1,45 +1,44 @@
-import React, { Component, PropTypes } from 'react';
-import { union as _union } from 'lodash';
+import React, {
+  Component,
+  PropTypes
+} from 'react';
 
-import TreeNode from './treenode';
+// TreeNode component
+import TreeNode from './TreeNode';
 
 // for using defaultProps
 const noop = function() {};
 
 /**
- * @class TreeView Component
+ * @class Tree Component
  * @extends {React.Component}
  */
-class TreeView extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      treeData: props.data
-    };
-  }
-
+class Tree extends Component {
   render() {
+    const {
+      data,
+      command,
+      searchText,
+      onClick,
+      onContextMenu
+    } = this.props;
+
     return (
-      <div className="tree">
-        <ul className="tree-root">
-          {this.state.treeData.map((node, i) =>
-            <TreeNode
-              key={node.id}
-              node={node}
-              searchText={this.props.searchText}
-              command={this.props.command}
-              onClick={this.props.onClick}
-              onContextMenu={this.props.onContextMenu}
-            />
-          )}
-        </ul>
-      </div>
+      <ul className="tree-root">
+        {data.map((node, i) =>
+          <TreeNode key={node.id}
+                    node={node}
+                    searchText={searchText}
+                    command={command}
+                    onClick={onClick}
+                    onContextMenu={onContextMenu} />
+        )}
+      </ul>
     );
   }
 }
 
-TreeView.defaultProps = {
+Tree.defaultProps = {
   data         : [],
   command      : '',
   searchText   : '',
@@ -47,7 +46,7 @@ TreeView.defaultProps = {
   onContextMenu: noop,
 };
 
-TreeView.propTypes = {
+Tree.propTypes = {
   data         : PropTypes.array,
   command      : PropTypes.string,
   searchText   : PropTypes.string,
@@ -55,4 +54,4 @@ TreeView.propTypes = {
   onContextMenu: PropTypes.func
 };
 
-export default TreeView;
+export default Tree;

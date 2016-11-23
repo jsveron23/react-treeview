@@ -13,6 +13,7 @@ class TreeNode extends Component {
     super(props);
 
     this.state = {
+      // this value could be undefined
       isChecked: !!props.node.collapse
     };
   }
@@ -20,13 +21,9 @@ class TreeNode extends Component {
   componentWillReceiveProps(nextProps) {
     const command = nextProps.command;
 
-    if (command === 'collapseAll') {
+    if (command === 'collapseAll' || command === 'expandAll') {
       this.setState({
-        isChecked: false
-      });
-    } else if (command === 'expandAll') {
-      this.setState({
-        isChecked: true
+        isChecked: command === 'collapseAll' ? false : true
       });
     } else if (command === 'search') {
       const
@@ -39,15 +36,18 @@ class TreeNode extends Component {
         this.setState({
           isChecked: true
         }, () => {
-          const queryParent = (node) => {
-            const input = node.querySelector('input');
+          // openning every found node parents
+          const queryParent = (nd) => {
+            const input = nd.querySelector('input');
 
             if (input) {
               input.checked = true;
             }
 
-            if (!node.classList.contains('tree')) {
-              queryParent(node.parentElement.parentElement);
+            if (!nd.classList.contains('tree')) {
+              // no ul
+              // li.ul.li
+              queryParent(nd.parentElement.parentElement);
             }
           };
 
@@ -60,6 +60,7 @@ class TreeNode extends Component {
   render() {
     const {
         node,
+        command,
         searchText,
         onClick,
         onContextMenu
@@ -88,6 +89,7 @@ class TreeNode extends Component {
         <label
           htmlFor={nodeId}
           className={className}
+          onClick={onClick}
           onContextMenu={onContextMenu}
         >
           {label}
@@ -101,10 +103,10 @@ class TreeNode extends Component {
               <TreeNode
                 key={childId}
                 node={child}
-                searchText={this.props.searchText}
-                command={this.props.command}
-                onClick={this.props.onClick}
-                onContextMenu={this.props.onContextMenu}
+                searchText={searchText}
+                command={command}
+                onClick={onClick}
+                onContextMenu={onContextMenu}
               />
             );
           })}
