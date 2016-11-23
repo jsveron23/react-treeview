@@ -8,30 +8,48 @@ import './scss/app';
 import data from './data';
 
 // Containers
-import Click       from './containers/click';
-import ContextMenu from './containers/contextmenu';
+import MouseClick  from './containers/mouse-click';
 import Search      from './containers/search';
+import CtrlNode    from './containers/ctrl-node';
 
 // TJ TreeView
 import TreeView from 'react-tj-treeview';
+
+// To make tree node having unique key
+import { shortId } from './utils';
+
+// generate node id
+// you should add id even manually for every node
+function generateNodeId(nodes) {
+  return nodes.map((node) => {
+    node.id = shortId();
+
+    if (Array.isArray(node.children)) {
+      generateNodeId(node.children);
+    }
+
+    return node;
+  });
+}
+
+// finish attach id
+const treeData = generateNodeId(data);
 
 export default class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      treeData            : data,
+      treeData: treeData,
+
       searchText          : undefined,
+      command             : '',
       highlightOnSearch   : true,
       collapseBeforeSearch: true,
 
       clickText      : '',
       contextMenuText: ''
     };
-
-    this.handleClick       = this.handleClick.bind(this);
-    this.handleContextMenu = this.handleContextMenu.bind(this);
-    this.handleLiveSearch  = this.handleLiveSearch.bind(this);
   }
 
   render() {
@@ -39,21 +57,28 @@ export default class App extends Component {
       <div>
         <section className="cp">
           <h1 className="cp-title">Tree Component</h1>
+
+          <div className="cp-actions">
+            <MouseClick
+              clickText={this.state.clickText}
+              contextMenuText={this.state.contextMenuText}
+            />
+            <Search onKeyUp={::this.handleLiveSearch} />
+            <CtrlNode
+              onCollapseAllClick={::this.handleCollpaseAll}
+              onExpandAllClick={::this.handleExpandAll} />
+          </div>
+
           <div className="cp-wrap">
             <TreeView
               data={this.state.treeData}
+              command={this.state.command}
               highlightOnSearch={this.state.highlightOnSearch}
               collapseBeforeSearch={this.state.collapseBeforeSearch}
               searchText={this.state.searchText}
-              onClick={this.handleClick}
-              onContextMenu={this.handleContextMenu}
+              onClick={::this.handleClick}
+              onContextMenu={::this.handleContextMenu}
             />
-          </div>
-
-          <div className="cp-actions">
-            <Click textContent={this.state.clickText} />
-            <ContextMenu textContent={this.state.contextMenuText} />
-            <Search onKeyUp={this.handleLiveSearch} />
           </div>
         </section>
       </div>
@@ -100,7 +125,42 @@ export default class App extends Component {
       text    = inputEl.value;
 
     this.setState({
-      searchText: text
+      command: 'collapseAll'
+    }, () => {
+      this.setState({
+        command   : 'search',
+        searchText: text
+      });
+    });
+
+    evt.stopPropagation();
+  }
+
+  handleCollpaseAll(evt) {
+    evt.preventDefault();
+
+    this.setState({
+      command   : 'collapseAll',
+      searchText: ''
+    }, () => {
+      this.setState({
+        command: ''
+      });
+    });
+
+    evt.stopPropagation();
+  }
+
+  handleExpandAll(evt) {
+    evt.preventDefault();
+
+    this.setState({
+      command   : 'expandAll',
+      searchText: ''
+    }, () => {
+      this.setState({
+        command: ''
+      });
     });
 
     evt.stopPropagation();

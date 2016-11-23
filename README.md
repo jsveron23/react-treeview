@@ -1,4 +1,4 @@
-[![npm](https://img.shields.io/npm/v/react-tj-treeview.svg?style=flat-square)](https://www.npmjs.com/package/react-tj-treeview) [![npm](https://img.shields.io/npm/l/react-tj-treeview.svg?style=flat-square)]()
+[![npm](https://img.shields.io/npm/v/react-tj-treeview.svg?style=flat-square)](https://www.npmjs.com/package/react-tj-treeview) [![npm](https://img.shields.io/npm/l/react-tj-treeview.svg?style=flat-square)](LICENSE)
 # react-tj-treeview
 
 ## Example
@@ -19,7 +19,7 @@ npm install react-tj-treeview
 
 ## Customize
 
-### CSS
+### SCSS
 
 You will need CSS for using this module, customize this.
 
@@ -103,84 +103,118 @@ $hoverBorderColor: #e0e0e0;
 ```json
 [{
   "label": "Sci-Fi",
+  "collapse": false,
   "children": [{
     "label": "Interstella",
+    "collapse": false,
     "children": [{
-      "label": "Matthew McConaughey"
+      "label": "Matthew McConaughey",
+      "leaf": true
     }]
   }]
 }, {
   "label": "Action",
+  "collapse": false,
   "children": [{
     "label": "Edge of Tomorrow",
+    "collapse": false,
     "children": [{
-      "label": "Emily Blunt"
+      "label": "Emily Blunt",
+      "leaf": true
     }]
   }]
 }, {
   "label": "Fantasy",
+  "collapse": false,
   "children": [{
     "label": "Fantastic Beasts and Where to Find Them",
+    "collapse": false,
     "children": [{
-      "label": "Eddie Redmayne"
+      "label": "Eddie Redmayne",
+      "leaf": true
     }]
   }, {
     "label": "Miss Peregrine\"s Home for Peculiar Children",
+    "collapse": false,
     "children": [{
-      "label": "Eva Green"
+      "label": "Eva Green",
+      "leaf": true
     }, {
-      "label": "Samuel L. Jackson"
+      "label": "Samuel L. Jackson",
+      "leaf": true
     }]
   }, {
     "label": "Star Wars",
+    "collapse": false,
     "children": [{
-      "label": "Mark Hamill"
+      "label": "Mark Hamill",
+      "leaf": true
     }, {
-      "label": "Harrison Ford"
+      "label": "Harrison Ford",
+      "leaf": true
     }, {
-      "label": "Felicity Jones"
+      "label": "Felicity Jones",
+      "leaf": true
     }, {
-      "label": "Daisy Ridley"
+      "label": "Daisy Ridley",
+      "leaf": true
     }, {
-      "label": "Mads Mikkelsen"
+      "label": "Mads Mikkelsen",
+      "leaf": true
     }, {
-      "label": "Emilia Clarke"
+      "label": "Emilia Clarke",
+      "leaf": true
     }]
   }, {
     "label": "Doctor Strange",
+    "collapse": false,
     "children": [{
-      "label": "Benedict Cumberbatch"
+      "label": "Benedict Cumberbatch",
+      "leaf": true
     }, {
-      "label": "Rachel McAdams"
+      "label": "Rachel McAdams",
+      "leaf": true
     }, {
-      "label": "Chiwetel Ejiofor"
+      "label": "Chiwetel Ejiofor",
+      "leaf": true
     }, {
-      "label": "Mads Mikkelsen"
+      "label": "Mads Mikkelsen",
+      "leaf": true
     }]
   }]
 }, {
   "label": "Comedy",
+  "collapse": false,
   "children": [{
     "label": "The Wolf of Wall Street",
+    "collapse": false,
     "children": [{
-      "label": "Leonardo DiCaprio"
+      "label": "Leonardo DiCaprio",
+      "leaf": true
     }, {
-      "label": "Matthew McConaughey"
+      "label": "Matthew McConaughey",
+      "leaf": true
     }]
   }, {
     "label": "Bad Moms",
+    "collapse": false,
     "children": [{
-      "label": "Mila Kunis"
+      "label": "Mila Kunis",
+      "leaf": true
     }]
   }, {
     "label": "Ghostbusters",
+    "collapse": false,
     "children": [{
-      "label": "Kristen Wiig"
+      "label": "Kristen Wiig",
+      "leaf": true
     }]
   }, {
     "label": "Deadpool",
+    "collapse": false,
     "children": [{
-      "label": "Ryan Reynolds"
+      "label": "Ryan Reynolds",
+      "leaf": true
     }]
   }]
 }]

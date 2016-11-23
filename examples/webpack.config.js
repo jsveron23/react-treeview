@@ -29,7 +29,7 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx', '.json', '.scss'],
     alias     : {
-      'react-tj-treeview': path.resolve(__dirname, '../src')
+      'react-tj-treeview': path.resolve(__dirname, '../src/tree')
     }
   },
 
