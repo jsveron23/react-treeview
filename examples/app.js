@@ -73,8 +73,6 @@ export default class App extends Component {
             <TreeView
               data={this.state.treeData}
               command={this.state.command}
-              highlightOnSearch={this.state.highlightOnSearch}
-              collapseBeforeSearch={this.state.collapseBeforeSearch}
               searchText={this.state.searchText}
               onClick={::this.handleClick}
               onContextMenu={::this.handleContextMenu}

@@ -12,21 +12,9 @@ const noop = function() {};
  */
 class TJTreeView extends Component {
   render() {
-    const {
-      data,
-      command,
-      searchText,
-      onClick,
-      onContextMenu
-    } = this.props;
-
     return (
       <div className="tree">
-        <Tree data={data}
-              command={command}
-              searchText={searchText}
-              onClick={onClick}
-              onContextMenu={onContextMenu} />
+        <Tree {...this.props} />
       </div>
     );
   }

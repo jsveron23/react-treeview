@@ -15,23 +15,14 @@ const noop = function() {};
  */
 class Tree extends Component {
   render() {
-    const {
-      data,
-      command,
-      searchText,
-      onClick,
-      onContextMenu
-    } = this.props;
+    const { data } = this.props;
 
     return (
       <ul className="tree-root">
         {data.map((node, i) =>
           <TreeNode key={node.id}
                     node={node}
-                    searchText={searchText}
-                    command={command}
-                    onClick={onClick}
-                    onContextMenu={onContextMenu} />
+                    {...this.props} />
         )}
       </ul>
     );
