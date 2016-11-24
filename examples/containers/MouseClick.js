@@ -8,7 +8,7 @@ export default class MouseClick extends Component {
   render() {
     return (
       <div className="act">
-        <h2 className="act-title">- onClick Event</h2>
+        <h2 className="act-title">- Mouse Event</h2>
         <div className="act-wrap">
           <p>
             <span>onClickText:</span>

@@ -6,23 +6,17 @@ import React, {
 // TreeNode component
 import TreeNode from './TreeNode';
 
-// for using defaultProps
-const noop = function() {};
-
 /**
  * @class Tree Component
  * @extends {React.Component}
  */
 class Tree extends Component {
   render() {
-    const { data } = this.props;
-
     return (
       <ul className="tree-root">
-        {data.map((node, i) =>
+        {this.props.data.map((node) =>
           <TreeNode key={node.id}
-                    node={node}
-                    {...this.props} />
+                    node={node} />
         )}
       </ul>
     );
@@ -30,19 +24,11 @@ class Tree extends Component {
 }
 
 Tree.defaultProps = {
-  data         : [],
-  command      : '',
-  searchText   : '',
-  onClick      : noop,
-  onContextMenu: noop,
+  data: [],
 };
 
 Tree.propTypes = {
-  data         : PropTypes.array,
-  command      : PropTypes.string,
-  searchText   : PropTypes.string,
-  onClick      : PropTypes.func,
-  onContextMenu: PropTypes.func
+  data: PropTypes.array
 };
 
 export default Tree;

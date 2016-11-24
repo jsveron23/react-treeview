@@ -18,8 +18,8 @@ class TreeNode extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const command = nextProps.command;
+  componentWillReceiveProps(nextProps, nextContent) {
+    const command = nextContent.command;
 
     if (command === 'collapseAll' || command === 'expandAll') {
       this.setState({
@@ -29,7 +29,7 @@ class TreeNode extends Component {
       const
         node   = nextProps.node,
         label  = node.label,
-        sText  = nextProps.searchText,
+        sText  = nextContent.searchText,
         reText = new RegExp(sText, 'i');
 
       if (sText && label.search(reText) !== -1) {
@@ -59,12 +59,15 @@ class TreeNode extends Component {
 
   render() {
     const {
-        node,
-        command,
-        searchText,
-        onClick,
-        onContextMenu
+        node
       } = this.props;
+
+    const {
+      command,
+      searchText,
+      onClick,
+      onContextMenu
+    } = this.context;
 
     const
       label    = node.label,
@@ -121,5 +124,12 @@ class TreeNode extends Component {
     });
   }
 }
+
+TreeNode.contextTypes = {
+  command      : PropTypes.string,
+  searchText   : PropTypes.string,
+  onClick      : PropTypes.func,
+  onContextMenu: PropTypes.func
+};
 
 export default TreeNode;

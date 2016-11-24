@@ -11,26 +11,40 @@ const noop = function() {};
  * @extends {React.Component}
  */
 class TJTreeView extends Component {
+  getChildContext() {
+    return {
+      command      : this.props.command,
+      searchText   : this.props.searchText,
+      onClick      : this.props.onClick,
+      onContextMenu: this.props.onContextMenu,
+    };
+  }
+
   render() {
     return (
       <div className="tree">
-        <Tree {...this.props} />
+        <Tree data={this.props.data} />
       </div>
     );
   }
 }
 
+TJTreeView.childContextTypes = {
+  command      : PropTypes.string,
+  searchText   : PropTypes.string,
+  onClick      : PropTypes.func,
+  onContextMenu: PropTypes.func
+};
+
 TJTreeView.defaultProps = {
   data         : [],
-  command      : '',
   searchText   : '',
   onClick      : noop,
-  onContextMenu: noop,
+  onContextMenu: noop
 };
 
 TJTreeView.propTypes = {
   data         : PropTypes.array,
-  command      : PropTypes.string,
   searchText   : PropTypes.string,
   onClick      : PropTypes.func,
   onContextMenu: PropTypes.func

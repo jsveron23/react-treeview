@@ -8,9 +8,9 @@ import './scss/app';
 import data from './data';
 
 // Containers
-import MouseClick  from './containers/mouse-click';
-import Search      from './containers/search';
-import CtrlNode    from './containers/ctrl-node';
+import MouseClick  from './containers/MouseClick';
+import Search      from './containers/Search';
+import CtrlNode    from './containers/CtrlNode';
 
 // TJ TreeView
 import TreeView from 'react-tj-treeview';
@@ -42,10 +42,8 @@ export default class App extends Component {
     this.state = {
       treeData: treeData,
 
-      searchText          : undefined,
-      command             : '',
-      highlightOnSearch   : true,
-      collapseBeforeSearch: true,
+      searchText: undefined,
+      command   : '',
 
       clickText      : '',
       contextMenuText: ''
