@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+// to check performance
+import Perf from 'react-addons-perf';
+
 // SASS
 import './scss/app';
 
@@ -29,6 +32,10 @@ export default class App extends Component {
     };
   }
 
+  componentDidMount() {
+    window.Perf = Perf;
+  }
+
   render() {
     return (
       <div>
@@ -40,7 +47,8 @@ export default class App extends Component {
               clickText={this.state.clickText}
               contextMenuText={this.state.contextMenuText}
             />
-            <Search onChange={::this.handleLiveSearch} />
+            <Search text="Live Search, reset collapse" onChange={::this.handleLiveSearchReset} />
+            <Search text="Live Search, stay collapse" onChange={::this.handleLiveSearchStay} />
             <CtrlNode
               onCollapseAllClick={::this.handleCollpaseAll}
               onExpandAllClick={::this.handleExpandAll} />
@@ -92,7 +100,7 @@ export default class App extends Component {
    * Live search
    * @param {onject} evt
    */
-  handleLiveSearch(text) {
+  handleLiveSearchReset(text) {
     this.setState({
       command: 'collapseAll'
     }, () => {
@@ -100,6 +108,17 @@ export default class App extends Component {
         command   : 'search',
         searchText: text
       });
+    });
+  }
+
+  /**
+   * Live search
+   * @param {onject} evt
+   */
+  handleLiveSearchStay(text) {
+    this.setState({
+      command   : 'search',
+      searchText: text
     });
   }
 

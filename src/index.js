@@ -3,7 +3,7 @@ import React, {
   PropTypes
 } from 'react';
 
-// To make tree node having unique key
+// to make tree node having new props will be using
 import {
   generateNodeProps
 } from './utils';
@@ -51,21 +51,24 @@ class TJTreeView extends Component {
    * @param {object} nextContent
    */
   componentWillReceiveProps(nextProps, nextContent) {
-    const
-      command    = nextProps.command,
-      searchText = nextProps.searchText;
-
-    this.toggleCollapse({}, command, searchText);
+    this.toggleCollapse({
+      node      : {},
+      command   : nextProps.command,
+      searchText: nextProps.searchText
+    });
   }
 
   /**
    * Toggle collpase of node handler
-   * @param {object} node
-   * @param {string} command
-   * @param {string} searchText
+   * @param {object} args
    */
-  toggleCollapse(node, command = '', searchText = '') {
-    const data = Array.isArray(this.state.data) ? this.state.data : [];
+  toggleCollapse(args) {
+    const {
+        node,
+        command,
+        searchText
+      } = args,
+      data = this.state.data;
 
     this.setState({
       data: this.changeCollapse({
@@ -161,8 +164,7 @@ class TJTreeView extends Component {
   render() {
     return (
       <div className="tree">
-        <Tree
-          data={this.state.data} />
+        <Tree data={this.state.data} />
       </div>
     );
   }

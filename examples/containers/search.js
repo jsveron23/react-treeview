@@ -25,7 +25,7 @@ export default class Search extends Component {
   render() {
     return (
       <div className="act">
-        <h2 className="act-title">- Search nodes (Live search)</h2>
+        <h2 className="act-title">- {this.props.text}</h2>
         <ul className="act-wrap">
           <label>Name:</label>
           <input type="text" onChange={::this.onChange} value={this.state.value} />

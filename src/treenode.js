@@ -47,22 +47,12 @@ class TreeNode extends Component {
           {label}
         </label>
 
-        {Array.isArray(children) && <ul className="tree-children">
-          {Array.isArray(children) && children.map((child) => {
-            const childId = child.id;
-
-            return (
-              <TreeNode
-                key={childId}
-                id={childId}
-                node={child}
-                searchText={searchText}
-                onClick={onClick}
-                onContextMenu={onContextMenu}
-              />
-            );
-          })}
-        </ul>}
+        <ul className="tree-children">
+          {Array.isArray(children) && children.map((child) =>
+            <TreeNode key={child.id}
+                      node={child} />
+          )}
+        </ul>
       </li>
     );
   }
@@ -70,7 +60,9 @@ class TreeNode extends Component {
   handleChange(evt) {
     const { onChangeCollapse } = this.context;
 
-    onChangeCollapse(this.props.node);
+    onChangeCollapse({
+      node: this.props.node
+    });
   }
 }
 
@@ -79,6 +71,14 @@ TreeNode.contextTypes = {
   onChangeCollapse: PropTypes.func,
   onClick         : PropTypes.func,
   onContextMenu   : PropTypes.func
+};
+
+TreeNode.defaultProps = {
+  node: {}
+};
+
+TreeNode.propTypes = {
+  node: PropTypes.object.isRequired
 };
 
 export default TreeNode;
