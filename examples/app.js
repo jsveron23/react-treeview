@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { extend as _extend } from 'lodash';
 
 // SASS
 import './scss/app';
@@ -15,32 +14,12 @@ import CtrlNode    from './containers/CtrlNode';
 // TJ TreeView
 import TreeView from 'react-tj-treeview';
 
-// To make tree node having unique key
-import { shortId } from './utils';
-
-// generate node id
-// you should add id even manually for every node
-function generateNodeId(nodes) {
-  return nodes.map((node) => {
-    node.id = shortId();
-
-    if (Array.isArray(node.children)) {
-      generateNodeId(node.children);
-    }
-
-    return node;
-  });
-}
-
-// finish attach id
-const treeData = generateNodeId(data);
-
 export default class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      treeData: treeData,
+      data: data,
 
       searchText: undefined,
       command   : '',
@@ -61,7 +40,7 @@ export default class App extends Component {
               clickText={this.state.clickText}
               contextMenuText={this.state.contextMenuText}
             />
-            <Search onKeyUp={::this.handleLiveSearch} />
+            <Search onChange={::this.handleLiveSearch} />
             <CtrlNode
               onCollapseAllClick={::this.handleCollpaseAll}
               onExpandAllClick={::this.handleExpandAll} />
@@ -69,7 +48,7 @@ export default class App extends Component {
 
           <div className="cp-wrap">
             <TreeView
-              data={this.state.treeData}
+              data={this.state.data}
               command={this.state.command}
               searchText={this.state.searchText}
               onClick={::this.handleClick}
@@ -113,13 +92,7 @@ export default class App extends Component {
    * Live search
    * @param {onject} evt
    */
-  handleLiveSearch(evt) {
-    evt.preventDefault();
-
-    const
-      inputEl = evt.target.parentElement.querySelector('input'),
-      text    = inputEl.value;
-
+  handleLiveSearch(text) {
     this.setState({
       command: 'collapseAll'
     }, () => {
@@ -128,8 +101,6 @@ export default class App extends Component {
         searchText: text
       });
     });
-
-    evt.stopPropagation();
   }
 
   handleCollpaseAll(evt) {
