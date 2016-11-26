@@ -1,7 +1,3 @@
-import {
-  isEmpty as _isEmpty
-} from 'lodash';
-
 /**
  * @see {@link http://stackoverflow.com/a/6248722/3216812}
  * @return {string}
@@ -20,7 +16,7 @@ export { shortId };
 export function generateNodeProps(nodes, parent) {
   return nodes.map((node) => {
     node.id     = shortId();
-    node.parent = !_isEmpty(parent) ? parent : undefined;
+    node.parent = parent && parent;
 
     if (Array.isArray(node.children)) {
       generateNodeProps(node.children, node);
