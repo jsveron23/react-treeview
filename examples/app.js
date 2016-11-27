@@ -17,14 +17,21 @@ import CtrlNode    from './containers/CtrlNode';
 // TJ TreeView
 import TreeView from 'react-tj-treeview';
 
+/**
+ * @class App
+ */
 export default class App extends Component {
+  /**
+   * @constructor
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
 
     this.state = {
       data: data,
 
-      searchText: undefined,
+      searchText: '',
       command   : '',
 
       clickText      : '',
@@ -70,31 +77,27 @@ export default class App extends Component {
 
   /**
    * Return node element when click node
-   * @param {object} evt
+   * @param {object} node
    */
-  handleClick(evt) {
-    const node = evt.target;
+  handleClick(node) {
+    const label = node.label;
 
     this.setState({
       command  : 'click',
-      clickText: node.textContent
+      clickText: label
     });
-
-    evt.stopPropagation();
   }
 
   /**
    * Return node element when right click node
-   * @param {object} evt
+   * @param {object} node
    */
-  handleContextMenu(evt) {
-    evt.preventDefault();
-
-    const node = evt.target;
+  handleContextMenu(node) {
+    const label = node.label;
 
     this.setState({
       command        : 'contextMenu',
-      contextMenuText: node.textContent
+      contextMenuText: label
     });
   }
 

@@ -28,22 +28,19 @@ class TreeNode extends Component {
       reText   = new RegExp(searchText, 'i');
 
     return (
-      <li>
+      <li onClick={::this.onClick}
+          onContextMenu={::this.onContextMenu}>
         {!isLeaf && <input
           type="checkbox"
           id={nodeId}
           onChange={::this.handleChange}
           checked={node.collapse}
         />}
-        <label
-          htmlFor={nodeId}
-          className={cx({
-            'is-found'    : searchText && label.search(reText) !== -1,
-            'has-children': !isLeaf
-          })}
-          onClick={onClick}
-          onContextMenu={onContextMenu}
-        >
+        <label htmlFor={nodeId}
+               className={cx({
+                 'is-found'    : searchText && label.search(reText) !== -1,
+                 'has-children': !isLeaf
+               })}>
           {label}
         </label>
 
@@ -65,6 +62,22 @@ class TreeNode extends Component {
     });
 
     evt.stopPropagation();
+  }
+
+  onClick(evt) {
+    const { onClick } = this.context;
+
+    onClick(this.props.node);
+
+    evt.stopPropagation();
+  }
+
+  onContextMenu(evt) {
+    evt.preventDefault();
+
+    const { onContextMenu } = this.context;
+
+    onContextMenu(this.props.node);
   }
 }
 
