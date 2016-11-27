@@ -17,11 +17,15 @@ Then open http://localhost:3000 in a browser.
 npm install react-tj-treeview
 ```
 
+## Screenshot
+
+![Screenshot](screenshot.png)
+
 ## Customize
 
 ### SCSS
 
-You will need CSS for using this module, customize this.
+You will need CSS for using this module, customize from SCSS.
 
 ```sass
 $hoverBorderColor: #e0e0e0;
@@ -96,9 +100,7 @@ $hoverBorderColor: #e0e0e0;
 }
 ```
 
-## Screenshot
-
-![Screenshot](screenshot.png)
+## Data (JSON)
 
 ```json
 [{
