@@ -4,10 +4,10 @@ import React, { Component } from 'react';
 import Perf from 'react-addons-perf';
 
 // SASS
-import './scss/app';
+import './scss/app.scss';
 
 // Data
-import data from './data';
+import data from './data.json';
 
 // Containers
 import MouseClick  from './containers/MouseClick';

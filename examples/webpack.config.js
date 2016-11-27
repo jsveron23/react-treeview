@@ -27,13 +27,18 @@ module.exports = {
   ],
 
   resolve: {
-    extensions: ['', '.js', '.jsx', '.json', '.scss'],
+    extensions: ['', '.js', '.jsx'],
     alias     : {
       'react-tj-treeview': path.resolve(__dirname, '../src')
     }
   },
 
   module: {
+    preLoaders: [{
+      test   : /\.(js|jsx)$/,
+      loader : 'eslint-loader',
+      exclude: /node_modules/
+    }],
     loaders: [{
       test   : /\.(js|jsx)$/,
       loaders: ['babel'],
@@ -45,5 +50,9 @@ module.exports = {
       test  : /\.json$/,
       loader: 'json'
     }]
+  },
+
+  eslint: {
+    configFile: '../.eslintrc'
   }
 };

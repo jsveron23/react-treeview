@@ -63,6 +63,8 @@ class TreeNode extends Component {
     onChangeCollapse({
       node: this.props.node
     });
+
+    evt.stopPropagation();
   }
 }
 

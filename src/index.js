@@ -29,10 +29,6 @@ class TJTreeView extends Component {
     this.state = {
       data: generateNodeProps(props.data)
     };
-
-    // Bind here
-    // - Sublime text 3 is not suppot ES7 syntax even using Babel
-    this.toggleCollapse = this.toggleCollapse.bind(this);
   }
 
   /**
@@ -42,7 +38,7 @@ class TJTreeView extends Component {
   getChildContext() {
     return {
       searchText      : this.props.searchText,
-      onChangeCollapse: this.toggleCollapse,
+      onChangeCollapse: ::this.toggleCollapse,
       onClick         : this.props.onClick,
       onContextMenu   : this.props.onContextMenu,
     };
