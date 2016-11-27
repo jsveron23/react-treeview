@@ -76,6 +76,7 @@ export default class App extends Component {
     const node = evt.target;
 
     this.setState({
+      command  : 'click',
       clickText: node.textContent
     });
 
@@ -92,6 +93,7 @@ export default class App extends Component {
     const node = evt.target;
 
     this.setState({
+      command        : 'contextMenu',
       contextMenuText: node.textContent
     });
   }
@@ -126,12 +128,7 @@ export default class App extends Component {
     evt.preventDefault();
 
     this.setState({
-      command   : 'collapseAll',
-      searchText: ''
-    }, () => {
-      this.setState({
-        command: ''
-      });
+      command: 'collapseAll'
     });
 
     evt.stopPropagation();
@@ -141,12 +138,7 @@ export default class App extends Component {
     evt.preventDefault();
 
     this.setState({
-      command   : 'expandAll',
-      searchText: ''
-    }, () => {
-      this.setState({
-        command: ''
-      });
+      command: 'expandAll'
     });
 
     evt.stopPropagation();
