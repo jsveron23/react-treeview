@@ -1,4 +1,4 @@
-$hoverBorderColor: #e0e0e0;
+// $hoverBorderColor: #e0e0e0;
 
 .tree {
   ul,
@@ -9,17 +9,17 @@ $hoverBorderColor: #e0e0e0;
   li {
     margin:      1px 0;
     user-select: none;
+    position:    relative;
   }
 
   li > label {
     display:       inline-block;
-    cursor:        pointer;
     padding:       3px 7px;
     border-radius: 6px;
     border-bottom: 1px solid transparent;
 
     &:hover {
-      border-bottom: 1px solid $hoverBorderColor;
+      // border-bottom: 1px solid $hoverBorderColor;
     }
 
     &:before {

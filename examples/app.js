@@ -10,9 +10,10 @@ import './scss/app.scss';
 import data from './data.json';
 
 // Containers
-import MouseClick  from './containers/MouseClick';
-import Search      from './containers/Search';
-import CtrlNode    from './containers/CtrlNode';
+import Act    from './components/Act';
+import Text   from './components/Text';
+import Input  from './components/Input';
+import Button from './components/Button';
 
 // TJ TreeView
 import TreeView from 'react-tj-treeview';
@@ -50,15 +51,34 @@ export default class App extends Component {
           <h1 className="cp-title">Tree Component</h1>
 
           <div className="cp-actions">
-            <MouseClick
-              clickText={this.state.clickText}
-              contextMenuText={this.state.contextMenuText}
-            />
-            <Search text="Live Search, reset collapse" onChange={::this.handleLiveSearchReset} />
-            <Search text="Live Search, stay collapse" onChange={::this.handleLiveSearchStay} />
-            <CtrlNode
-              onCollapseAllClick={::this.handleCollpaseAll}
-              onExpandAllClick={::this.handleExpandAll} />
+            <Act title="Mouse Events">
+              <Text label="onClick:"
+                    text={this.state.clickText} />
+              <Text label="onContextMenu:"
+                    text={this.state.contextMenuText} />
+            </Act>
+
+            <Act title="Live Search">
+              <div className="flex flex-row">
+                <p>
+                  <label>R:</label>
+                  <Input onChange={::this.handleLiveSearchReset}
+                         placeholder="reset collapse" />
+                </p>
+                <p>
+                  <label>S:</label>
+                  <Input onChange={::this.handleLiveSearchStay}
+                         placeholder="stay collapse" />
+                </p>
+              </div>
+            </Act>
+
+            <Act title="Buttons">
+              <Button title="Collapse All"
+                      onClick={::this.handleCollpaseAll} />
+              <Button title="Expand All"
+                      onClick={::this.handleExpandAll} />
+            </Act>
           </div>
 
           <div className="cp-wrap">

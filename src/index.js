@@ -40,7 +40,7 @@ class TJTreeView extends Component {
       searchText      : this.props.searchText,
       onChangeCollapse: ::this.toggleCollapse,
       onClick         : this.props.onClick,
-      onContextMenu   : this.props.onContextMenu,
+      onContextMenu   : this.props.onContextMenu
     };
   }
 
@@ -56,6 +56,19 @@ class TJTreeView extends Component {
       command   : nextProps.command,
       searchText: nextProps.searchText
     });
+  }
+
+  /**
+   * React 'render' event handler
+   * @event
+   * @return {[type]} [description]
+   */
+  render() {
+    return (
+      <div className="tree">
+        <Tree data={this.state.data} />
+      </div>
+    );
   }
 
   /**
@@ -154,19 +167,6 @@ class TJTreeView extends Component {
       // return new node
       return node;
     });
-  }
-
-  /**
-   * React 'render' event handler
-   * @event
-   * @return {[type]} [description]
-   */
-  render() {
-    return (
-      <div className="tree">
-        <Tree data={this.state.data} />
-      </div>
-    );
   }
 }
 

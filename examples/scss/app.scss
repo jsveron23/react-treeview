@@ -4,3 +4,11 @@
 @import "layout";
 @import "modules/modules";
 @import "state";
+
+.flex {
+  display: flex;
+
+  &-row {
+    flex-direction: row;
+  }
+}

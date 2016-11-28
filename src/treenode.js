@@ -27,8 +27,14 @@ class TreeNode extends Component {
       children = node.children,
       reText   = new RegExp(searchText, 'i');
 
+    const className = cx({
+      'is-found'    : searchText && label.search(reText) !== -1,
+      'has-children': !isLeaf
+    });
+
     return (
-      <li onClick={::this.onClick}
+      <li data-id={nodeId}
+          onClick={::this.onClick}
           onContextMenu={::this.onContextMenu}>
         {!isLeaf && <input
           type="checkbox"
@@ -37,10 +43,7 @@ class TreeNode extends Component {
           checked={node.collapse}
         />}
         <label htmlFor={nodeId}
-               className={cx({
-                 'is-found'    : searchText && label.search(reText) !== -1,
-                 'has-children': !isLeaf
-               })}>
+               className={className}>
           {label}
         </label>
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class Search extends Component {
+export default class Input extends Component {
   constructor(props) {
     super(props);
 
@@ -24,13 +24,9 @@ export default class Search extends Component {
 
   render() {
     return (
-      <div className="act">
-        <h2 className="act-title">- {this.props.text}</h2>
-        <ul className="act-wrap">
-          <label>Name:</label>
-          <input type="text" onChange={::this.onChange} value={this.state.value} />
-        </ul>
-      </div>
+      <input type="text"
+             onChange={::this.onChange}
+             placeholder={this.props.placeholder} />
     );
   }
 };
